@@ -1,15 +1,15 @@
-from abc import ABC
 
 from Battery import Battery
 
 
-class SpindlerBattery(Battery, ABC):
+class SpindlerBattery(Battery):
     def __init__(self, last_service_date, current_date):
-        
-        self.current_mileage = current_date
+        self.last_service_date = last_service_date
+        self.current_date = current_date
 
     def needs_service(self):
-        pass
-
-    # def engine_should_be_serviced(self):
-    #     return self.current_mileage - self.last_service_mileage > 30000
+        service_threshold_date = self.last_service_date.replace(year=self.last_service_date.year + 2)
+        if service_threshold_date < self.current_date:
+            return True
+        else:
+            return False
